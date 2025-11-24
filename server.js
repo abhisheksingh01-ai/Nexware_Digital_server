@@ -1,20 +1,31 @@
+// Import required dependencies
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
+// Create Express app instance
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: "http://localhost:5173" }));
+// CORS setup (update origin for production)
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
+
+// Middleware to parse JSON request body
 app.use(express.json());
 
-app.get("/", (req, res) => res.send("Server is running"));
+// Default route
+app.get("/", (req, res) => res.send("Server is running!"));
 
+// Email sending route
 app.post("/send-email", async (req, res) => {
   const { name, email, message } = req.body;
 
   try {
+    // Setup transporter using Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -23,6 +34,7 @@ app.post("/send-email", async (req, res) => {
       },
     });
 
+    // Mail configuration
     const mailOptions = {
       from: email,
       to: process.env.RECEIVER_EMAIL,
@@ -36,10 +48,15 @@ app.post("/send-email", async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
+
     res.json({ success: true, message: "Email sent!" });
   } catch (err) {
     res.json({ success: false, error: err.message });
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ❌ DO NOT USE app.listen() on Vercel
+// Vercel handles server listening automatically
+
+// ✅ Export the app for Vercel serverless function
+module.exports = app;
