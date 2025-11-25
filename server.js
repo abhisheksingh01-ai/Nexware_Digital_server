@@ -10,7 +10,7 @@ const app = express();
 // CORS setup (update origin for production)
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://technexwaredigital.in"],
   })
 );
 
