@@ -8,7 +8,7 @@ const emailTemplate = require("./templates/ContactUs.js");
 const app = express();
 app.use(
   cors({
-    origin: ["https://technexwaredigital.in"],
+    origin: ["https://technexwaredigital.in","http://localhost:5173"],
   })
 );
 
