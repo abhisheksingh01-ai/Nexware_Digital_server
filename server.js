@@ -7,9 +7,10 @@ const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
+// "https://technexwaredigital.in"
 app.use(
   cors({
-    origin: ["https://technexwaredigital.in", "http://localhost:5173"],
+    origin: ["http://localhost:5173"],
   })
 );
 
