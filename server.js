@@ -7,10 +7,10 @@ const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
-// "https://technexwaredigital.in"
+
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://technexwaredigital.in"],
   })
 );
 
@@ -22,8 +22,8 @@ app.use("/api/contact", contactRoutes);
 
 app.get("/", (req, res) => res.send("Server is running!"));
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 module.exports = app;
